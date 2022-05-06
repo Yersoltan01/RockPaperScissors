@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RockPaperScissors</title>
 </head>
 <body>
     <div class="game">
         <h1>Rock Paper Scissors!</h1>
         <div class="choice">
-                <label for="">Make your choice: </label><input type="text" id="choiceField" class="choiceField">
+                <label for="choiceField">Make your choice: </label><input type="text" class="choiceField">
                 <input type="submit" value="Submit choice" class="choiceSubmit">
         </div>
     </div>
     <div class="result">
         <div class="playerChoice">
-            
+
         </div>
         <div class="computerChoice">
 
@@ -26,6 +26,56 @@
         </div>
     </div>
     <script>
+        const playerChoice = document.querySelector('.choiceSubmit');
+        const choice = document.querySelector('.choiceField');
+        
+        function startGame() {
+            const userChoice = choice.value;
+            const computerChoice = computerPlay();
+            const text;
+
+            let sensitiveUserChoice = userChoice.toLowerCase();
+
+            switch(sensitiveUserChoice) {
+                case 'rock': 
+                    if(computerChoice == 'Scissors') {
+                        text = 'You Won! \
+                        Rock beats Scissors';
+                    }
+                    else if(computerChoice == 'Paper') {
+                        text = 'You Lost! \
+                        Paper beats Rock';
+                    }
+                    else text = 'Draw!';
+                    break;
+                case 'paper': 
+                    if(computerChoice == 'Rock') {
+                        text = 'You Won! \
+                        Paper beats Rock';
+                    }
+                    else if(computerChoice == 'Scissors') {
+                        text = 'You Lost! \
+                        Scissors beats Paper';
+                    }
+                    else text = 'Draw!';
+                    break;
+                case 'scissors': 
+                    if(computerChoice == 'Paper') {
+                        text = 'You Won! \
+                        Scissors beats Paper';
+                    }
+                    else if(computerChoice == 'Rock') {
+                        text = 'You Lost! \
+                        Rock beats Scissors';
+                    }
+                    else text = 'Draw!';
+                    break;
+            }
+
+        }
+
+        playerChoice.addEventListener('click', startGame)
+
         function computerPlay() {
             let random = Math.floor(Math.random() * 3);
             let computerChoice = null;
@@ -38,7 +88,6 @@
             else computerChoice = 'Scissors';
             return computerChoice;
         }
-        let computerChoice = computerPlay();
     </script>
 </body>
 </html>
