@@ -14,30 +14,29 @@
                 <input type="submit" value="Submit choice" class="choiceSubmit">
         </div>
     </div>
-    <div class="result">
-        <div class="playerChoice">
-
-        </div>
-        <div class="computerChoice">
-
-        </div>
-        <div class="lostOrWin">
-
-        </div>
+    <div class="resultMessage">
+        <p class="resultsPlayer"></p>
+        <p class="resultsComputer"></p>
+        <p class="results"></p>
     </div>
     <script>
         const playerChoice = document.querySelector('.choiceSubmit');
         const choice = document.querySelector('.choiceField');
-        
+        let result = document.querySelector('.results');  
+        //let resultPlayer = doc
         function startGame() {
             const userChoice = choice.value;
             const computerChoice = computerPlay();
-            const text;
-
+            
+            let text ;
             let sensitiveUserChoice = userChoice.toLowerCase();
+            sensitiveUserChoice = sensitiveUserChoice.charAt(0).toUpperCase() + sensitiveUserChoice.slice(1);
+
+            document.querySelector('.resultsPlayer').textContent = 'Your choice: ' + sensitiveUserChoice;
+            document.querySelector('.resultsComputer').textContent = 'Computer choice: '  + computerChoice;
 
             switch(sensitiveUserChoice) {
-                case 'rock': 
+                case 'Rock': 
                     if(computerChoice == 'Scissors') {
                         text = 'You Won! \
                         Rock beats Scissors';
@@ -48,7 +47,7 @@
                     }
                     else text = 'Draw!';
                     break;
-                case 'paper': 
+                case 'Paper': 
                     if(computerChoice == 'Rock') {
                         text = 'You Won! \
                         Paper beats Rock';
@@ -59,7 +58,7 @@
                     }
                     else text = 'Draw!';
                     break;
-                case 'scissors': 
+                case 'Scissors': 
                     if(computerChoice == 'Paper') {
                         text = 'You Won! \
                         Scissors beats Paper';
@@ -70,8 +69,11 @@
                     }
                     else text = 'Draw!';
                     break;
+                default: 
+                    text = 'Please, enter valid data.'
             }
 
+            result.textContent = text;
         }
 
         playerChoice.addEventListener('click', startGame)
