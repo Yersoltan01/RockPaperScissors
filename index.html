@@ -7,13 +7,19 @@
     <title>RockPaperScissors</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<b2ody>
+<body>
     <div class="game">
         <h1>Rock Paper Scissors!</h1>
         <div class="choice">
                 <label for="inputField" class="inputLabel">Make your choice: </label><input type="text" class="inputField">
                 <input type="submit" value="Submit choice" class="submitButton">
+                <br>
+                <button class="resetButton">Reset</button>
         </div>
+    </div>
+    <div class="score">
+        <p>User score: </p> <p class="userWins"></p>
+        <p>Computer score: </p> <p class="computerWins"></p>
     </div>
     <div class="resultMessage">
         <p class="userResults"></p>
@@ -24,12 +30,18 @@
     <script>
         const round = document.querySelector('.submitButton');
         const choice = document.querySelector('.inputField');
+        const resetButton = document.querySelector('.resetButton');
         let result = document.querySelector('.results'); 
-        function startGame() {
+        let userScore = document.querySelector('.userWins');
+        let computerScore = document.querySelector('.computerWins');
+        let userWins = 0, computerWins = 0;
+
+        function playRound() {
             const userChoice = choice.value;
             const computerChoice = computerPlay();
             
-            let text ;
+            let winner;
+            let text;
             let sensitiveUserChoice = userChoice.toLowerCase();
             sensitiveUserChoice = sensitiveUserChoice.charAt(0).toUpperCase() + sensitiveUserChoice.slice(1);
 
@@ -41,43 +53,84 @@
                     if(computerChoice == 'Scissors') {
                         text = 'You Won! \
                         Rock beats Scissors';
+                        winner = 'user';
                     }
                     else if(computerChoice == 'Paper') {
                         text = 'You Lost! \
                         Paper beats Rock';
+                        winner = 'computer';
                     }
-                    else text = 'Draw!';
+                    else {
+                        text = 'Draw!';
+                        winner = 'draw';
+                    } 
                     break;
                 case 'Paper': 
                     if(computerChoice == 'Rock') {
                         text = 'You Won! \
                         Paper beats Rock';
+                        winner = 'user';
                     }
                     else if(computerChoice == 'Scissors') {
                         text = 'You Lost! \
                         Scissors beats Paper';
+                        winner = 'computer';
                     }
-                    else text = 'Draw!';
+                    else {
+                        text = 'Draw!';
+                        winner = 'draw';
+                    } 
                     break;
                 case 'Scissors': 
                     if(computerChoice == 'Paper') {
                         text = 'You Won! \
                         Scissors beats Paper';
+                        winner = 'user';
                     }
                     else if(computerChoice == 'Rock') {
                         text = 'You Lost! \
                         Rock beats Scissors';
+                        winner = 'computer';
                     }
-                    else text = 'Draw!';
+                    else {
+                        text = 'Draw!';
+                        winner = 'draw';
+                    } 
                     break;
                 default: 
                     text = 'Please, enter valid data.'
             }
 
+            if(winner === 'user') {
+                userWins++;
+            }
+            if(winner === 'computer') {
+                computerWins++;
+            }
+            resetButton.addEventListener('click', reset);
+
             result.textContent = text;
+            userScore.textContent = userWins;
+            computerScore.textContent = computerWins;
+
+            if(computerWins === 5) {
+                alert('You lost the game. Try one more time!')
+                reset();
+            }
+
+            if(userWins === 5) {
+                alert('Congratulations! You won this round.')
+                reset();
+            }
+
+            function reset() {
+                userWins = 0;
+                computerWins = 0;
+                document.location.reload();
+            }
         }
 
-        round.addEventListener('click', startGame)
+        round.addEventListener('click', playRound);
 
         function computerPlay() {
             let random = Math.floor(Math.random() * 3);
@@ -92,5 +145,5 @@
             return computerChoice;
         }
     </script>
-</b2ody>
+</body>
 </html>

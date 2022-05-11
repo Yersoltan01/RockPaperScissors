@@ -4,6 +4,6 @@ body {
     text-align: center;
 }
 
-.inputField {
-    margin: 10px 0;
+.inputField, .submitButton {
+    margin-bottom: 10px;
 }
