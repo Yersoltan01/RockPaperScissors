@@ -4,30 +4,117 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RockPaperScissors</title>
+    <title>CAS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game">
-        <h1>Rock Paper Scissors!</h1>
-        <div class="choice">
-                <label for="inputField" class="inputLabel">Make your choice: </label><input type="text" class="inputField">
-                <input type="submit" value="Submit choice" class="submitButton">
-                <br>
-                <button class="resetButton">Reset</button>
+    <div class="story">
+        <h1>Dungeon Escape</h1>
+        <div class="mainStory">
+            <p>
+                A severe headache (it feels like someone gave you a good shot on the head) prevents you from remembering how you got here.
+                You hear someone coming to the door and unlocking the lock. The guard tells you to follow him, refusing to explain what's happening.
+                You appear before the young prince of the local empire, who is clearly in high spirits. He offers you a chance to get out of prison if you beat him in his favourite card game.
+            </p>
+        </div>
+        <div class="gameRules">
+            <div class="rules">
+                The rules of the game are pretty simple. You need to choose one of three cards: cavalryman, spearmen and archer. The cavalryman defeats the archer, the archer defeats the spearman, the spearman defeats the cavalryman. The winner is calculated after 5 rounds.
+            </div>
         </div>
     </div>
-    <div class="score">
-        <p>User score: </p> <p class="userWins"></p>
-        <p>Computer score: </p> <p class="computerWins"></p>
+    <div class="game">
+        <div class="rounds">
+            <div class="round">1 <img src="images/scratch.png" alt="" id="blood"></div>
+            <div class="round">2 <img src="images/scratch.png" alt="" id="blood"></div>
+            <div class="round">3 <img src="images/scratch.png" alt="" id="blood"></div>
+            <div class="round">4 <img src="images/scratch.png" alt="" id="blood"></div>
+            <div class="round">5 <img src="images/scratch.png" alt="" id="blood"></div>
+        </div>
+        <div class="playerSide">
+            <div class="cardsContainerPlayer">
+                <div class="cards">
+                    <button class="cavalryman card-button"  >
+                        <div class="card">
+                            B
+                        </div>
+                        <div class="cardText">
+                            Cavalryman
+                        </div>
+                    </button>
+                </div>
+                <div class="cards">
+                    <button class="spearman card-button">
+                        <div class="card">
+                            K
+                        </div>
+                        <div class="cardText">
+                            Spearmen
+                        </div>
+                    </button>
+                </div>
+                <div class="cards">
+                    <button class="archer card-button">
+                        <div class="card">
+                            J
+                        </div>
+                        <div class="cardText">
+                            Archer
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="message">
+            <p class="roundResults"></p>
+            <p class="roundMessage"></p>
+        </div>
+        <div class="computerSide">
+            <div class="cardsContainerComputer">
+                <div class="cards">
+                    <div class="card">
+                        B
+                    </div>
+                    <div class="cardText">
+                        Cavalryman
+                    </div>
+                    
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        K
+                    </div>
+                    <div class="cardText">
+                        Spearmen
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card">
+                        J
+                    </div>
+                    <div class="cardText">
+                        Archer
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="resultMessage">
-        <p class="userResults"></p>
-        <p class="computerResults"></p>
-        <p class="results"></p>
+    <div class="defeat">
+    </div>
+    <div class="victory">
     </div>
 
-    <script src="javascript.js">
-    </script>
+    <div class="boxBack">
+        <div class="boxWrap">
+            <div class="boxTxt">
+                <p class="boxMessage"></p>
+            </div>
+            <div class="okButton">
+                <input type="button" value="Reload the page" class="ok"/>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript.js"> </script>
 </body>
 </html>

@@ -1,33 +1,30 @@
-const round = document.querySelector('.submitButton');
-const choice = document.querySelector('.inputField');
-const resetButton = document.querySelector('.resetButton');
-let result = document.querySelector('.results'); 
-let userScore = document.querySelector('.userWins');
-let computerScore = document.querySelector('.computerWins');
-let userWins = 0, computerWins = 0;
+const cavalryman = document.querySelector('.cavalryman');
+const archer = document.querySelector('.archer');
+const spearman = document.querySelector('.spearman');
+const rounds = document.querySelectorAll('.round');
+const blood = document.querySelectorAll('#blood');
+const results1 = document.querySelector('.roundResults');
+const results2 = document.querySelector('.roundMessage');
+const gameOver = document.querySelector('.boxBack');
+const boxMessage = document.querySelector('.boxMessage');
+const ok = document.querySelector('.ok');
 
-function playRound() {
-    const userChoice = choice.value;
-    const computerChoice = computerPlay();
+let roundsPlayed = 0;
+let playerWins = 0;
+let computerWins = 0;
+
+function playRound(playerChoice) {
+    let text; 
+    let computerChoice = computerPlay();
     
-    let winner;
-    let text;
-    let sensitiveUserChoice = userChoice.toLowerCase();
-    sensitiveUserChoice = sensitiveUserChoice.charAt(0).toUpperCase() + sensitiveUserChoice.slice(1);
-
-    document.querySelector('.userResults').textContent = 'Your choice: ' + sensitiveUserChoice;
-    document.querySelector('.computerResults').textContent = 'Computer choice: '  + computerChoice;
-
-    switch(sensitiveUserChoice) {
-        case 'Rock': 
-            if(computerChoice == 'Scissors') {
-                text = 'You Won! \
-                Rock beats Scissors';
-                winner = 'user';
+    switch(playerChoice) {
+        case 'cavalryman': 
+            if(computerChoice == 'archer') {
+                text = 'Cavalry beats Archer!';
+                winner = 'player';
             }
-            else if(computerChoice == 'Paper') {
-                text = 'You Lost! \
-                Paper beats Rock';
+            else if(computerChoice == 'spearman') {
+                text = 'Spearman beats Cavalryman!';
                 winner = 'computer';
             }
             else {
@@ -35,15 +32,13 @@ function playRound() {
                 winner = 'draw';
             } 
             break;
-        case 'Paper': 
-            if(computerChoice == 'Rock') {
-                text = 'You Won! \
-                Paper beats Rock';
-                winner = 'user';
+            case 'archer': 
+            if(computerChoice == 'spearman') {
+                text = 'Archer beats Spearman!';
+                winner = 'player';
             }
-            else if(computerChoice == 'Scissors') {
-                text = 'You Lost! \
-                Scissors beats Paper';
+            else if(computerChoice == 'cavalryman') {
+                text = 'Cavalryman beats Archer!';
                 winner = 'computer';
             }
             else {
@@ -51,15 +46,13 @@ function playRound() {
                 winner = 'draw';
             } 
             break;
-        case 'Scissors': 
-            if(computerChoice == 'Paper') {
-                text = 'You Won! \
-                Scissors beats Paper';
-                winner = 'user';
+        case 'spearman': 
+            if(computerChoice == 'cavalryman') {
+                text = 'Spearman beats Cavalryman!';
+                winner = 'player';
             }
-            else if(computerChoice == 'Rock') {
-                text = 'You Lost! \
-                Rock beats Scissors';
+            else if(computerChoice == 'archer') {
+                text = 'Archer beats Spearman!';
                 winner = 'computer';
             }
             else {
@@ -68,49 +61,73 @@ function playRound() {
             } 
             break;
         default: 
-            text = 'Please, enter valid data.'
+            text = 'Something went wrong ): \
+            Please, try again.';
     }
 
-    if(winner === 'user') {
-        userWins++;
+    if(roundsPlayed < 5) {
+        if(winner === 'player') {
+            playerWins++;
+            rounds.item(roundsPlayed).style.background = 'gold';
+            rounds.item(roundsPlayed).style.border = '3px solid #ffa918';
+            results1.style.display = 'block';
+            results1.textContent = text;
+            results2.textContent = 'Yesss, You won this round'
+        }
+        if(winner === 'computer') {
+            computerWins++;
+            rounds.item(roundsPlayed).style.background = 'red';
+            blood.item(roundsPlayed).style.display = 'inline';
+            results1.style.display = 'block';
+            results1.textContent = text;
+            results2.textContent =  'Damn, Prince won this round';
+        }
+        if(winner === 'draw') {
+            rounds.item(roundsPlayed).style.background = 'grey';
+            results1.style.display = 'none';
+            results2.textContent = 'Ohh, It\'s a draw';
+        }
+        roundsPlayed++;
     }
-    if(winner === 'computer') {
-        computerWins++;
-    }
-    resetButton.addEventListener('click', reset);
-
-    result.textContent = text;
-    userScore.textContent = userWins;
-    computerScore.textContent = computerWins;
-
-    if(computerWins === 5) {
-        alert('You lost the game. Try one more time!')
-        reset();
-    }
-
-    if(userWins === 5) {
-        alert('Congratulations! You are a winner.')
-        reset();
+    
+    if(roundsPlayed == 5) {
+        if(playerWins > computerWins) {
+            boxMessage.textContent = 'Luck is on our side, we are saved!';
+        }
+        if(playerWins < computerWins) {
+            boxMessage.textContent = 'Luck is not on our side. The guard knocks you out...'
+        }
+        if(playerWins == computerWins) {
+            boxMessage.textContent = 'Draw. There will be another party...'
+        }
+        gameOver.style.display = 'flex';
     }
 
-    function reset() {
-        userWins = 0;
-        computerWins = 0;
-        document.location.reload();
+    function computerPlay() {
+        let random = Math.floor(Math.random() * 3);
+        let computerChoice = null;
+        if(random == 0) {
+            computerChoice = 'cavalryman';
+        }
+        else if(random == 1) {
+            computerChoice = 'archer';
+        }
+        else computerChoice = 'spearman';
+        return computerChoice;
     }
 }
 
-round.addEventListener('click', playRound);
+cavalryman.addEventListener('click', () => {
+    playRound('cavalryman');
 
-function computerPlay() {
-    let random = Math.floor(Math.random() * 3);
-    let computerChoice = null;
-    if(random == 0) {
-        computerChoice = 'Rock';
-    }
-    else if(random == 1) {
-        computerChoice = 'Paper';
-    }
-    else computerChoice = 'Scissors';
-    return computerChoice;
-}
+});
+archer.addEventListener('click', () => {
+    playRound('archer');
+});
+spearman.addEventListener('click', () => {
+    playRound('spearman');
+});
+
+ok.addEventListener('click', () => {
+    document.location.reload();
+});
